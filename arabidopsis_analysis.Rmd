@@ -457,7 +457,8 @@ detected in only a few bins, so they are not significant:
 ```{r de-top-fc}
 de %>% arrange(-avg_log2FC) %>% head(5) %>%
   dplyr::select(gene, avg_log2FC, pct.1, pct.2, p_val_adj) %>%
-  mutate(across(where(is.numeric), ~ signif(.x, 3))) %>% knitr::kable(row.names = FALSE)
+  mutate(across(where(is.numeric), ~ signif(.x, 3)),
+         p_val_adj = formatC(p_val_adj, format = "g", digits = 2)) %>% knitr::kable(row.names = FALSE)
 ```
 
 For example, CA1 is 5.7 times higher in cotyledon, but it is detected in only 11% of cotyledon bins
@@ -466,7 +467,8 @@ against 4% of germinating-seed bins, and its adjusted p is 0.5. The genes that p
 ```{r de-significant}
 de %>% filter(sig != "Not significant") %>% arrange(p_val_adj) %>% head(15) %>%
   dplyr::select(gene, sig, avg_log2FC, pct.1, pct.2, p_val_adj) %>%
-  mutate(across(where(is.numeric), ~ signif(.x, 3))) %>% knitr::kable(row.names = FALSE)
+  mutate(across(where(is.numeric), ~ signif(.x, 3)),
+         p_val_adj = formatC(p_val_adj, format = "g", digits = 2)) %>% knitr::kable(row.names = FALSE)
 ```
 
 ```{r volcano, fig.height = 6}
@@ -556,7 +558,7 @@ The numbers under each tissue are the genes that could be matched to GO annotati
 ```{r ora-table}
 as.data.frame(ora) %>% group_by(Cluster) %>% slice_min(p.adjust, n = 3, with_ties = FALSE) %>%
   dplyr::select(Cluster, Description, GeneRatio, p.adjust) %>%
-  mutate(p.adjust = signif(p.adjust, 2)) %>% knitr::kable()
+  mutate(p.adjust = formatC(p.adjust, format = "g", digits = 2)) %>% knitr::kable()
 ```
 
 > **Why `dplyr::select` and not just `select`?** Loading clusterProfiler also loads AnnotationDbi
@@ -610,7 +612,8 @@ n_gsea_raw <- nrow(gsea)
 gsea <- simplify(gsea, cutoff = 0.7)
 
 as.data.frame(gsea)[, c("Description", "setSize", "NES", "p.adjust")] %>%
-  mutate(NES = round(NES, 2), p.adjust = signif(p.adjust, 2)) %>% knitr::kable(row.names = FALSE)
+  mutate(NES = round(NES, 2), p.adjust = formatC(p.adjust, format = "g", digits = 2)) %>%
+  knitr::kable(row.names = FALSE)
 ```
 
 ```{r gsea-plot, fig.width = 8, fig.height = 5}
@@ -806,6 +809,13 @@ original scripts (explained below), and small changes between software versions.
 - Run GSEA on **all** genes, and match genes by TAIR locus ID to keep more of them.
 - Fit the gradient along the **root** (meristematic tissue → elongation zone → root) instead of the
   shoot.
+
+These ideas became the rest of a series: part 2,
+[arabidopsis-visium-hd-followup](https://github.com/DrSeed/arabidopsis-visium-hd-followup), tries all
+four; part 3, [arabidopsis-visium-hd-atlas](https://github.com/DrSeed/arabidopsis-visium-hd-atlas),
+checks the tissue labels against a published single-nucleus atlas; and
+[arabidopsis-visium-hd-series](https://github.com/DrSeed/arabidopsis-visium-hd-series) compares the
+three parts.
 
 # Session information
 

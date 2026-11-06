@@ -5,6 +5,14 @@ finish in R/Seurat. It explains every step: what it does, why it is done that wa
 It fixes the bugs in the original scripts and reports the numbers this run actually produced,
 including where they differ from the original.
 
+> **Part 1 of a series.** Part 2,
+> [arabidopsis-visium-hd-followup](https://github.com/DrSeed/arabidopsis-visium-hd-followup), tests
+> how robust these results are. Part 3,
+> [arabidopsis-visium-hd-atlas](https://github.com/DrSeed/arabidopsis-visium-hd-atlas), checks the
+> tissue labels against a published single-nucleus atlas.
+> [arabidopsis-visium-hd-series](https://github.com/DrSeed/arabidopsis-visium-hd-series) compares
+> all three.
+
 **➡ Read the full notebook: [arabidopsis_analysis.md](arabidopsis_analysis.md)**
 (source: [arabidopsis_analysis.Rmd](arabidopsis_analysis.Rmd))
 
