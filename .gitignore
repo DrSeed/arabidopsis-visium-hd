@@ -1,0 +1,23 @@
+# Raw data (1.6 GB). Download it with the Step 2 chunk in the notebook.
+data/
+
+# Large or regenerated outputs
+results/*.rds
+results/*_log.txt
+
+# HTML preview made when knitting (GitHub shows the .md version instead)
+arabidopsis_analysis.html
+
+# The original author's repository, cloned locally for comparison (linked in README.md)
+original_repo/
+
+# Earlier working material, replaced by the annotated notebook
+GUIDE.md
+R_code/
+
+# RStudio and R session files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
